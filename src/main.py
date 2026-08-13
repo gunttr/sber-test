@@ -1,7 +1,14 @@
 from fastapi import FastAPI, Request
+from redis.asyncio import Redis
+import os
+
+
+REDIS_HOST: str = os.getenv("REDIS_HOST", "redis")
+REDIS_PORT: int = int(os.getenv("REDIS_PORT", 6379))
+REDIS_TTL: int = int(os.getenv("REDIS_TTL", 3600))
 
 app = FastAPI()
-
+redis = Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
 
 def get_client_ip(request: Request) -> str:
     x_forwarded_for: str | None = request.headers.get("X-Forwarded-For")
@@ -16,8 +23,7 @@ def get_client_ip(request: Request) -> str:
 
 
 async def write_to_redis(client_hostname: str, client_ip: str):
-    with open("redis.txt", "a") as file:
-        file.write(f"{client_hostname}: {client_ip}\n")
+    await redis.set(name=client_hostname, value=client_ip, ex=REDIS_TTL)
 
 
 @app.get("/")
