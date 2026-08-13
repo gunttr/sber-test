@@ -12,10 +12,11 @@ docker compose up -d
 
 ## Запуск тестов
 
-Сначала нужно установить тестовое окружение
+Сначала нужно установить тестовое окружение. Используемая при разработке версия питона - **`3.14`**. Совместима с **`3.13`**. Остальные не проверял
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements-dev.txt
 ```
 
@@ -28,5 +29,5 @@ docker compose up -d
 Запуск тестов
 
 ```bash
-python -m pytest
+python3 -m pytest -v
 ```
