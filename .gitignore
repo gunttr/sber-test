@@ -4,3 +4,4 @@ __pycache__
 redis_test.py
 redis.txt
 .env
+.pytest_cache
