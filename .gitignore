@@ -1,0 +1,7 @@
+.venv
+todo.md
+__pycache__
+redis_test.py
+redis.txt
+.env
+.pytest_cache

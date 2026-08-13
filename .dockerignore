@@ -1,0 +1,12 @@
+.venv
+todo.md
+__pycache__
+.pytest_cache
+nginx/
+redis_test.py
+redis.txt
+.env
+*.md
+.git*
+tests/
+requirements-dev.txt
