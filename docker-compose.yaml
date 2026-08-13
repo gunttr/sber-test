@@ -4,8 +4,6 @@ services:
     image: fast_api_app:latest
     container_name: fast_api_app
     restart: always
-    ports:
-      - "8000:8000"
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -13,6 +11,18 @@ services:
     networks:
       - fast_api_app_network
     
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - fast_api_app
+    networks:
+      - fast_api_app_network
 
   redis:
     image: redis:latest
