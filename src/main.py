@@ -26,6 +26,11 @@ async def write_to_redis(client_hostname: str, client_ip: str):
     await redis.set(name=client_hostname, value=client_ip, ex=REDIS_TTL)
 
 
+@app.get("/health")
+async def get_health() -> dict[str, str]:
+    return {"status": "healthy"}
+
+
 @app.get("/")
 async def root(request: Request, client_hostname: str | None = None) -> dict[str, str]:
     client_ip: str = get_client_ip(request=request)

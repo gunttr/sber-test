@@ -1,7 +1,7 @@
 FROM python:3.14-alpine
 WORKDIR /app
 
-RUN adduser -H -D -s /bin/sh app-user
+RUN apk add --no-cache curl && adduser -H -D -s /bin/sh app-user
 
 COPY --chown=app-user:app-user requirements.txt .
 
